@@ -1,0 +1,22 @@
+# Ignore node_modules directory
+node_modules/
+
+# Ignore logs and other generated files
+logs/
+*.log
+npm-debug.log*
+
+# Ignore environment variables file
+.env
+
+# Ignore build output
+dist/
+
+# Ignore configuration files that may contain sensitive information
+config/*.json
+
+# Ignore VS Code configuration files
+.vscode/
+
+# Ignore any local configuration files
+*.config.js
