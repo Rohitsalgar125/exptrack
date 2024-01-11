@@ -1,15 +1,26 @@
 const user = require("../schema/user/userSchema");
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken');
 
 const register = async (req, res) => {
-  let userPayload, encryptedPassword;
+  let userPayload, encryptedPassword, existingUser;
   try {
     userPayload = req.body;
-    encryptedPassword = await bcrypt.hash(userPayload?.password, 10);
-    userPayload.password = encryptedPassword;
-    await user.create(userPayload);
-
-    return res.send({ status: 1, response: "Registered Successfully" });
+    if (Object.keys(userPayload).length > 0) {
+      existingUser = await user.findOne({ email: userPayload.email });
+      if (existingUser === null) {
+        encryptedPassword = await bcrypt.hash(userPayload?.password, 10);
+        userPayload.password = encryptedPassword;
+        await user.create(userPayload);
+        return res.send({ status: 1, response: "Registered Successfully" });
+      }
+      else {
+        return res.send({ status: 0, response: "Email already Exist" });
+      }
+    }
+    else {
+      return res.send({ status: 0, response: "Data Not Found" });
+    }
   } catch (error) {
     return res.send({
       status: 0,
@@ -43,23 +54,42 @@ const getalluser = async (req, res) => {
   }
 };
 
+
 const login = async (req, res) => {
-  let payload, existingUser, comparePassword;
+  let payload, existingUser, comparePassword, updatedUserData;
   try {
     payload = req.body;
-    existingUser = await user.findOne({ email: payload.email });
-    if (existingUser !== null) {
-      comparePassword = await bcrypt.compare(payload.password, existingUser.password);
-      if (comparePassword) {
-        return res.send({ status: 1, response: "Login Successfully" });
+    if (Object.keys(payload).length > 0) {
+      updatedUserData = {};
+      existingUser = await user.findOne({ email: payload.email });
+      updatedUserData.name = existingUser.name;
+      updatedUserData.mobileNo = existingUser.mobileNo;
+      updatedUserData.email = existingUser.email;
+      if (existingUser !== null) {
+        comparePassword = await bcrypt.compare(payload.password, existingUser.password);
+        if (comparePassword) {
+          await user.findOneAndUpdate({ email: payload.email }, { signedIn: "1" })
+          return res.send({
+            status: 1, response: "Login Successfully", token: jwt.sign(
+              {
+                data: updatedUserData,
+              },
+              "secretkey", { expiresIn: '2h' }
+            ),
+
+          });
+        }
+        else {
+          return res.send({ status: 0, response: "email or password incorrect" });
+        }
       }
       else {
-        return res.send({ status: 0, response: "email or password incorrect" });
+
+        return res.send({ status: 1, response: "user not found" });
       }
     }
     else {
-
-      return res.send({ status: 1, response: "user not found" });
+      return res.send({ status: 1, response: "Data not found" });
     }
   } catch (error) {
     return res.send({
@@ -69,10 +99,26 @@ const login = async (req, res) => {
   }
 };
 
+const Logout = async (req, res) => {
+  let payload;
+  try {
+    payload = req.body;
+    if (Object.keys(payload).length > 0) {
+      await user.findOneAndUpdate({ email: payload.email }, { signedIn: "2" })
+    }
+  } catch (error) {
+    return res.send({
+      status: 0,
+      message: error.message,
+    });
+  }
+}
+
 
 module.exports = {
   register,
   welcome,
   getalluser,
-  login
+  login,
+  Logout
 }

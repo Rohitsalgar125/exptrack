@@ -15,11 +15,23 @@ const addBudgetValidation = [
     },
 ];
 
+
+const deleteExpenseValidation = [
+    check("budgetId").notEmpty().withMessage("Budget Id can not be empty"),
+    check("expenseId").notEmpty().withMessage("Expense Id can not be empty"),
+
+    (req, res, next) => {
+        let errors = validationResult(req).array();
+        if (errors.length > 0) {
+            return res.send({ status: 0, message: errors[0].msg });
+        }
+        return next();
+    },
+];
+
 const addExpenseValidation = [
-    check("category").notEmpty().withMessage("category can not be empty"),
-    check("amount").notEmpty().withMessage("amount can not be empty"),
-    check("description").notEmpty().withMessage("description can not be empty"),
-    check("date").notEmpty().withMessage("date can not be empty"),
+    check("spending").notEmpty().withMessage("Spending can not be empty"),
+    check("category").notEmpty().withMessage("Category can not be empty"),
 
     (req, res, next) => {
         let errors = validationResult(req).array();
@@ -32,5 +44,7 @@ const addExpenseValidation = [
 
 module.exports = {
     addBudgetValidation,
+    addExpenseValidation,
+    deleteExpenseValidation,
     addExpenseValidation
 };

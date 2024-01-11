@@ -23,7 +23,7 @@ const budgetSchema = mongoose.Schema({
         default: 0
     },
     expenses: {
-        type: [{ category: String, spending: Number }],
+        type: [{ category: { type: String, required: true }, spending: { type: Number, required: true } }],
         default: []
     }
 }, {
