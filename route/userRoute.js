@@ -7,7 +7,7 @@ const {
 const { authChecker } = require("../common/common");
 
 userRouter.get('/', welcome)
-userRouter.get('/getalluser', authChecker, getalluser)
+userRouter.get('/getalluser' ,  getalluser)
 userRouter.post("/register", registerValidation, register);
 userRouter.post("/login", loginValidation, login);
 
