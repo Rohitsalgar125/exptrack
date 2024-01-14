@@ -15,7 +15,7 @@ const addCategory = async (req, res) => {
   } catch (error) {
     return res.send({
       status: 0,
-      message: error.message,
+      response: error.message,
     });
   }
 };
@@ -34,7 +34,7 @@ const deleteCategory = async (req, res) => {
   } catch (error) {
     return res.send({
       status: 0,
-      message: error.message,
+      response: error.message,
     });
   }
 }
@@ -45,7 +45,7 @@ const getAllCategoryBasedOnUser = async (req, res) => {
     payload = req.body;
     if (Object.keys(payload).length > 0) {
       categories = await category.find({ userId: payload.id });
-      return res.send({ status: 1, data: categories });
+      return res.send({ status: 1, response : categories });
     }
     else {
       return res.send({ status: 0, response: "Data Not Found" });
@@ -53,7 +53,7 @@ const getAllCategoryBasedOnUser = async (req, res) => {
   } catch (error) {
     return res.send({
       status: 0,
-      message: error.message,
+      response: error.message,
     });
   }
 }
