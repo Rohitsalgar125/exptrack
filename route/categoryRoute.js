@@ -4,10 +4,10 @@ const { addCategory, deleteCategory, getAllCategoryBasedOnUser } = require("../c
 const {
   addCategoryValidation,
 } = require("../validation/expenseValidation/categoryValidation");
-const { authChecker } = require("../common/common");
+// const { authChecker } = require("../common/common");
 
-categoryRouter.post("/add", authChecker, addCategoryValidation, addCategory);
-categoryRouter.post("/delete", authChecker, deleteCategory);
-categoryRouter.post("/getAllCategoryBasedOnUser", authChecker, getAllCategoryBasedOnUser);
+categoryRouter.post("/add",  addCategoryValidation, addCategory);
+categoryRouter.post("/delete", deleteCategory);
+categoryRouter.post("/getAllCategoryBasedOnUser",getAllCategoryBasedOnUser);
 
 module.exports = categoryRouter;

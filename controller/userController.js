@@ -65,6 +65,7 @@ const login = async (req, res) => {
       updatedUserData.name = existingUser.name;
       updatedUserData.mobileNo = existingUser.mobileNo;
       updatedUserData.email = existingUser.email;
+      updatedUserData.signedIn = existingUser.signedIn
       if (existingUser !== null) {
         comparePassword = await bcrypt.compare(payload.password, existingUser.password);
         if (comparePassword) {
