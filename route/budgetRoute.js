@@ -6,7 +6,5 @@ let budgetRouter = express.Router();
 
 budgetRouter.post("/addBudget",addBudgetValidation, addBudget);
 budgetRouter.post("/deleteBudget", deleteBudget);
-budgetRouter.post("/addExpense",  addExpenseValidation, addExpense);
-budgetRouter.post("/deleteExpense",  deleteExpenseValidation, deleteExpense);
 
 module.exports = budgetRouter;
