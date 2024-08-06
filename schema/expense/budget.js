@@ -6,26 +6,14 @@ const budgetSchema = mongoose.Schema({
         type: ObjectId,
         ref: "user"
     },
-    month: {
-        type: String,
-        required: true
-    },
-    year: {
-        type: String,
-        required: true
-    },
-    budget: {
+    amount: {
         type: Number,
         required: true
     },
-    totalExpense: {
-        type: Number,
+    description: {
+        type: String,
         default: 0
     },
-    expenses: {
-        type: [{ category: { type: String, required: true }, spending: { type: Number, required: true } }],
-        default: []
-    }
 }, {
     timestamps: true,
     versionKey: false
