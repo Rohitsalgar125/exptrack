@@ -2,8 +2,6 @@ const { check, validationResult } = require("express-validator");
 
 const addBudgetValidation = [
     check("userId").notEmpty().withMessage("userId can not be empty"),
-    check("month").notEmpty().withMessage("month can not be empty"),
-    check("year").notEmpty().withMessage("year can not be empty"),
     check("budget").notEmpty().withMessage("budget can not be empty"),
 
     (req, res, next) => {
