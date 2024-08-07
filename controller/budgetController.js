@@ -25,7 +25,7 @@ const getAllExpense = async (req, res) => {
     try {
         payload = req.body;
         if (Object.keys(payload).length > 0) {
-           data = await budget.find({_id :objectId(payload.id)});
+           data = await budget.find({ userId :objectId(payload.id)});
             res.send({ status: 1, repsponse: "Expense Added Successfully" , data : data  });
         }
         else {
