@@ -20,6 +20,22 @@ const addExpense = async (req, res) => {
     }
 }
 
+const getAllExpense = async (req, res) => {
+    let payload , data;
+    try {
+        payload = req.body;
+        if (Object.keys(payload).length > 0) {
+           data = await budget.find({_id : payload.id});
+            res.send({ status: 1, repsponse: "Expense Added Successfully" , data : data  });
+        }
+        else {
+            res.send({ status: 0, repsponse: "Data Not Found" });
+        }
+    } catch (error) {
+        res.send({ status: 0, repsponse: error.message });
+    }
+}
+
 const deleteExpense = async (req, res) => {
     let payload, deleteReturn;
     try {
@@ -46,4 +62,5 @@ const deleteExpense = async (req, res) => {
 module.exports = {
     addExpense,
     deleteExpense,
+    getAllExpense
 }
