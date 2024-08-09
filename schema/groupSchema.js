@@ -7,7 +7,7 @@ const groupSchema = mongoose.Schema({
     ref: "user"
   },
   groupName: { type: String, required: true },
-  groupType: { type: String, enum: ['Home', 'Trip'], required: true },
+  groupType: { type: String,  required: true },
   groupPhoto: { type: String },
 }, {
   versionKey: false,
