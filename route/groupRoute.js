@@ -1,8 +1,11 @@
+
 const express = require("express");
-const {  addGroup } = require("../controller/groupController");
+const { addGroup } = require("../controller/groupController");
+const { addGroupValidation } = require("../validation/groupValidation");
 let groupRouter = express.Router();
 
-groupRouter.post("/addGroup",addGroup );
+
+groupRouter.post("/addGroup", addGroupValidation, addGroup);
 
 
 module.exports = groupRouter;
