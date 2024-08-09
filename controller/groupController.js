@@ -1,8 +1,7 @@
 
 
 const { default: mongoose } = require('mongoose');
-const group = require('../schema/group');
-const objectId = mongoose.Types.ObjectId;
+const group = require('../schema/groupSchema');
 
 
 const addGroup = async (req, res) => {
