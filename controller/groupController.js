@@ -25,7 +25,7 @@ const getAllGroup = async (req, res) => {
     try {
         payload = req.body;
         if (Object.keys(payload).length > 0) {
-            data = await group.find({ userId: new objectId(payload.id) });
+            data = await group.find({ userId: new objectId(payload.userId) });
             res.send({ status: 1, data: data });
         }
         else {
