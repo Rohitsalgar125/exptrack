@@ -1,4 +1,4 @@
-
+const { default: mongoose } = require('mongoose');
 const objectId = mongoose.Types.ObjectId;
 const group = require('../schema/groupSchema');
 
