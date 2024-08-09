@@ -5,7 +5,7 @@ const { check, validationResult } = require("express-validator");
 const addGroupValidation = [
     check("groupName").notEmpty().withMessage("groupName can not be empty"),
     check("groupType").notEmpty().withMessage("groupType can not be empty"),
-
+    check("userId").notEmpty().withMessage("userId can not be empty"),
     (req, res, next) => {
         let errors = validationResult(req).array();
         if (errors.length > 0) {
@@ -18,4 +18,3 @@ const addGroupValidation = [
 module.exports = {
     addGroupValidation
 };
-
